@@ -1,0 +1,28 @@
+{
+  "name": "apollo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "apollo-cache-inmemory": "^1.6.5",
+    "apollo-client": "^2.6.8",
+    "apollo-datasource-rest": "^0.8.0",
+    "apollo-link": "^1.2.13",
+    "apollo-link-rest": "^0.8.0-beta.0",
+    "apollo-server": "^2.11.0",
+    "babel-plugin-inline-import": "^3.0.0",
+    "graphql": "^14.6.0",
+    "graphql-anywhere": "^4.2.6",
+    "graphql-tag": "^2.10.3",
+    "graphql-yoga": "^1.18.3",
+    "qs": "^6.9.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
