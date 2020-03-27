@@ -1,0 +1,28 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Query {
+  suitablePlanets(value: Float): [Exoplanet]
+}
+
+type Mutation {
+  addStation(name: StationInput!): Exoplanet
+}
+
+type Exoplanet {
+  name: String
+  mass: Mass
+  hasStation: Int
+}
+
+type Mass {
+  value: Float
+  unit: String
+}
+
+input StationInput {
+  scopeDefinition: String!
+  successDefinition: String!
+}
