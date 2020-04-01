@@ -1,59 +1,58 @@
+/*const db = require("./prisma/generated/prisma-client");
+
+async function main()  {
+  const all = await db.prisma.installedExoplanets();
+  console.log(all);
+}
+
+main();*/
+
 const { ApolloServer, gql } = require("apollo-server");
 const { RESTDataSource } = require("apollo-datasource-rest");
 const path = require("path");
 const resolvers = require("./resolvers");
-const prismaClient = require("./prisma/generated/prisma-client");
+const db = require("./prisma/generated/prisma-client");
 
 const typeDefs = gql`
   type Exoplanet {
     name: String
-    mass: Mass
-    stations: [Station]
+    mass: Float
+    hasStation: Boolean
   }
 
-  type Mass {
-    value: Float
-    unit: String
-  }
-
-  type Station {
+  type InstalledExoplanet {
     name: String
     hasStation: String
   }
 
   type Query {
     suitablePlanets: [Exoplanet]
+    installedstations(searchName: String): [Exoplanet]
   }
 
   type Mutation {
-    installStation(name: String!): Exoplanet
+    installStation(name: String!, hasStation: Boolean!): Exoplanet
   }
 `;
-
-// const resolvers = {
-//   Query: {
-//     suitablePlanets : async (_, __, { dataSources }) => {
-//       return await dataSources.arcsecondAPI.getExoplanets()
-//     }
-//   }
-// }
 
 class ArcsecondLocalAPI extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = "http://localhost:44347/api/";
   }
 
-  async installStation(exploplanet) {
-    return this.post(
-      "installedstations", // path
-      exploplanet // request body
-    );
+  async installExoplanet(exoplanet) {
+    return db.prisma.createExoplanet({
+      name: exoplanet.name,
+      hasStation: exoplanet.hasStation
+    });
   }
 
-  async getInstalledStation(name) {
-      const data = await this.get(`installedstations/${name}`);
-      return data;
+  async getInstalledExoplanet(name) {
+    return await db.prisma.exoplanets({
+      where: {
+        name_contains: name       
+      }
+    });
   }
 }
 
@@ -63,9 +62,22 @@ class ArcsecondAPI extends RESTDataSource {
     this.baseURL = "https://api.arcsecond.io/";
   }
 
-  async getExoplanets() {
-    const data = await this.get("exoplanets");
-    return data.results.filter(f => f.mass && f.mass.value >= 25);
+  async getExoplanets(dataSources) {
+    var data = await this.get("exoplanets");
+    var result = data.results.filter(f => f.mass && f.mass.value >= 25);
+
+    const promises = result.map(async (item, idx) => {
+        item.mass = item.mass.value;
+        var installed = await dataSources.arcsecondLocalAPI.getInstalledExoplanet(item.name);
+        if(installed[0])
+          item.hasStation = installed[0].hasStation;
+        else
+          item.hasStation = false;
+    });
+
+    await Promise.all(promises);    
+
+    return result;
   }
 }
 
@@ -77,25 +89,10 @@ const server = new ApolloServer({
       arcsecondAPI: new ArcsecondAPI(),
       arcsecondLocalAPI: new ArcsecondLocalAPI()
     };
-  }
+  },
+  context: db
 });
 
 server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });
-
-//server.start(() => console.log("Server is running on http://localhost:4000"))
-
-/*
-const { GraphQLServer } = require("graphql-yoga")
-const path = require("path")
-const resolvers = require("./resolvers")
-
-const server = new GraphQLServer({
-  typeDefs: path.resolve(__dirname, "schema.graphql"),
-  resolvers
-})
-
-server.start(() => console.log("Server is running on http://localhost:4000"))
-
-*/

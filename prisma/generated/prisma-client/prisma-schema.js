@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateUser {
+/* GraphQL */ `type AggregateExoplanet {
   count: Int!
 }
 
@@ -11,15 +11,115 @@ type BatchPayload {
   count: Long!
 }
 
+type Exoplanet {
+  id: Int!
+  name: String!
+  hasStation: Boolean
+}
+
+type ExoplanetConnection {
+  pageInfo: PageInfo!
+  edges: [ExoplanetEdge]!
+  aggregate: AggregateExoplanet!
+}
+
+input ExoplanetCreateInput {
+  id: Int
+  name: String!
+  hasStation: Boolean
+}
+
+type ExoplanetEdge {
+  node: Exoplanet!
+  cursor: String!
+}
+
+enum ExoplanetOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  hasStation_ASC
+  hasStation_DESC
+}
+
+type ExoplanetPreviousValues {
+  id: Int!
+  name: String!
+  hasStation: Boolean
+}
+
+type ExoplanetSubscriptionPayload {
+  mutation: MutationType!
+  node: Exoplanet
+  updatedFields: [String!]
+  previousValues: ExoplanetPreviousValues
+}
+
+input ExoplanetSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: ExoplanetWhereInput
+  AND: [ExoplanetSubscriptionWhereInput!]
+  OR: [ExoplanetSubscriptionWhereInput!]
+  NOT: [ExoplanetSubscriptionWhereInput!]
+}
+
+input ExoplanetUpdateInput {
+  name: String
+  hasStation: Boolean
+}
+
+input ExoplanetUpdateManyMutationInput {
+  name: String
+  hasStation: Boolean
+}
+
+input ExoplanetWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  name: String
+  name_not: String
+  name_in: [String!]
+  name_not_in: [String!]
+  name_lt: String
+  name_lte: String
+  name_gt: String
+  name_gte: String
+  name_contains: String
+  name_not_contains: String
+  name_starts_with: String
+  name_not_starts_with: String
+  name_ends_with: String
+  name_not_ends_with: String
+  hasStation: Boolean
+  hasStation_not: Boolean
+  AND: [ExoplanetWhereInput!]
+  OR: [ExoplanetWhereInput!]
+  NOT: [ExoplanetWhereInput!]
+}
+
+input ExoplanetWhereUniqueInput {
+  id: Int
+}
+
 scalar Long
 
 type Mutation {
-  createUser(data: UserCreateInput!): User!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
-  updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
-  upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
-  deleteUser(where: UserWhereUniqueInput!): User
-  deleteManyUsers(where: UserWhereInput): BatchPayload!
+  createExoplanet(data: ExoplanetCreateInput!): Exoplanet!
+  updateExoplanet(data: ExoplanetUpdateInput!, where: ExoplanetWhereUniqueInput!): Exoplanet
+  updateManyExoplanets(data: ExoplanetUpdateManyMutationInput!, where: ExoplanetWhereInput): BatchPayload!
+  upsertExoplanet(where: ExoplanetWhereUniqueInput!, create: ExoplanetCreateInput!, update: ExoplanetUpdateInput!): Exoplanet!
+  deleteExoplanet(where: ExoplanetWhereUniqueInput!): Exoplanet
+  deleteManyExoplanets(where: ExoplanetWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -40,111 +140,14 @@ type PageInfo {
 }
 
 type Query {
-  user(where: UserWhereUniqueInput!): User
-  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
-  usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  exoplanet(where: ExoplanetWhereUniqueInput!): Exoplanet
+  exoplanets(where: ExoplanetWhereInput, orderBy: ExoplanetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exoplanet]!
+  exoplanetsConnection(where: ExoplanetWhereInput, orderBy: ExoplanetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExoplanetConnection!
   node(id: ID!): Node
 }
 
 type Subscription {
-  user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
-}
-
-type User {
-  id: ID!
-  name: String!
-}
-
-type UserConnection {
-  pageInfo: PageInfo!
-  edges: [UserEdge]!
-  aggregate: AggregateUser!
-}
-
-input UserCreateInput {
-  id: ID
-  name: String!
-}
-
-type UserEdge {
-  node: User!
-  cursor: String!
-}
-
-enum UserOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-}
-
-type UserPreviousValues {
-  id: ID!
-  name: String!
-}
-
-type UserSubscriptionPayload {
-  mutation: MutationType!
-  node: User
-  updatedFields: [String!]
-  previousValues: UserPreviousValues
-}
-
-input UserSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: UserWhereInput
-  AND: [UserSubscriptionWhereInput!]
-  OR: [UserSubscriptionWhereInput!]
-  NOT: [UserSubscriptionWhereInput!]
-}
-
-input UserUpdateInput {
-  name: String
-}
-
-input UserUpdateManyMutationInput {
-  name: String
-}
-
-input UserWhereInput {
-  id: ID
-  id_not: ID
-  id_in: [ID!]
-  id_not_in: [ID!]
-  id_lt: ID
-  id_lte: ID
-  id_gt: ID
-  id_gte: ID
-  id_contains: ID
-  id_not_contains: ID
-  id_starts_with: ID
-  id_not_starts_with: ID
-  id_ends_with: ID
-  id_not_ends_with: ID
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  AND: [UserWhereInput!]
-  OR: [UserWhereInput!]
-  NOT: [UserWhereInput!]
-}
-
-input UserWhereUniqueInput {
-  id: ID
+  exoplanet(where: ExoplanetSubscriptionWhereInput): ExoplanetSubscriptionPayload
 }
 `
       }
