@@ -2,6 +2,7 @@ const { ApolloServer, gql } = require("apollo-server");
 const { RESTDataSource } = require("apollo-datasource-rest");
 const path = require("path");
 const resolvers = require("./resolvers");
+const prismaClient = require("./prisma/generated/prisma-client");
 
 const typeDefs = gql`
   type Exoplanet {

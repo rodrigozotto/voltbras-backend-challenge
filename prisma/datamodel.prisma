@@ -1,0 +1,5 @@
+type Exoplanet {
+  id: Int! @id
+  name: String! 
+  hasStation: Boolean
+}
