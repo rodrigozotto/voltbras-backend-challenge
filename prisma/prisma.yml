@@ -1,4 +1,4 @@
-endpoint: http://localhost:4466
+endpoint: http://localhost:4467 # no docker-compose.yml tá q a porta é 4467
 datamodel: datamodel.prisma
 
 generate:
