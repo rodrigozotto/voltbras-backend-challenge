@@ -1,15 +1,5 @@
-/*const db = require("./prisma/generated/prisma-client");
-
-async function main()  {
-  const all = await db.prisma.installedExoplanets();
-  console.log(all);
-}
-
-main();*/
-
 const { ApolloServer, gql } = require("apollo-server");
 const { RESTDataSource } = require("apollo-datasource-rest");
-const path = require("path");
 const resolvers = require("./resolvers");
 const db = require("./prisma/generated/prisma-client");
 
