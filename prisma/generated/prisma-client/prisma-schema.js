@@ -3,7 +3,7 @@ module.exports = {
   // Please don't change this file manually but run `prisma generate` to update it.
   // For more information, please read the docs: https://www.prisma.io/docs/prisma-client/
 
-/* GraphQL */ `type AggregateExoplanet {
+/* GraphQL */ `type AggregateStation {
   count: Int!
 }
 
@@ -11,115 +11,15 @@ type BatchPayload {
   count: Long!
 }
 
-type Exoplanet {
-  id: Int!
-  name: String!
-  hasStation: Boolean
-}
-
-type ExoplanetConnection {
-  pageInfo: PageInfo!
-  edges: [ExoplanetEdge]!
-  aggregate: AggregateExoplanet!
-}
-
-input ExoplanetCreateInput {
-  id: Int
-  name: String!
-  hasStation: Boolean
-}
-
-type ExoplanetEdge {
-  node: Exoplanet!
-  cursor: String!
-}
-
-enum ExoplanetOrderByInput {
-  id_ASC
-  id_DESC
-  name_ASC
-  name_DESC
-  hasStation_ASC
-  hasStation_DESC
-}
-
-type ExoplanetPreviousValues {
-  id: Int!
-  name: String!
-  hasStation: Boolean
-}
-
-type ExoplanetSubscriptionPayload {
-  mutation: MutationType!
-  node: Exoplanet
-  updatedFields: [String!]
-  previousValues: ExoplanetPreviousValues
-}
-
-input ExoplanetSubscriptionWhereInput {
-  mutation_in: [MutationType!]
-  updatedFields_contains: String
-  updatedFields_contains_every: [String!]
-  updatedFields_contains_some: [String!]
-  node: ExoplanetWhereInput
-  AND: [ExoplanetSubscriptionWhereInput!]
-  OR: [ExoplanetSubscriptionWhereInput!]
-  NOT: [ExoplanetSubscriptionWhereInput!]
-}
-
-input ExoplanetUpdateInput {
-  name: String
-  hasStation: Boolean
-}
-
-input ExoplanetUpdateManyMutationInput {
-  name: String
-  hasStation: Boolean
-}
-
-input ExoplanetWhereInput {
-  id: Int
-  id_not: Int
-  id_in: [Int!]
-  id_not_in: [Int!]
-  id_lt: Int
-  id_lte: Int
-  id_gt: Int
-  id_gte: Int
-  name: String
-  name_not: String
-  name_in: [String!]
-  name_not_in: [String!]
-  name_lt: String
-  name_lte: String
-  name_gt: String
-  name_gte: String
-  name_contains: String
-  name_not_contains: String
-  name_starts_with: String
-  name_not_starts_with: String
-  name_ends_with: String
-  name_not_ends_with: String
-  hasStation: Boolean
-  hasStation_not: Boolean
-  AND: [ExoplanetWhereInput!]
-  OR: [ExoplanetWhereInput!]
-  NOT: [ExoplanetWhereInput!]
-}
-
-input ExoplanetWhereUniqueInput {
-  id: Int
-}
-
 scalar Long
 
 type Mutation {
-  createExoplanet(data: ExoplanetCreateInput!): Exoplanet!
-  updateExoplanet(data: ExoplanetUpdateInput!, where: ExoplanetWhereUniqueInput!): Exoplanet
-  updateManyExoplanets(data: ExoplanetUpdateManyMutationInput!, where: ExoplanetWhereInput): BatchPayload!
-  upsertExoplanet(where: ExoplanetWhereUniqueInput!, create: ExoplanetCreateInput!, update: ExoplanetUpdateInput!): Exoplanet!
-  deleteExoplanet(where: ExoplanetWhereUniqueInput!): Exoplanet
-  deleteManyExoplanets(where: ExoplanetWhereInput): BatchPayload!
+  createStation(data: StationCreateInput!): Station!
+  updateStation(data: StationUpdateInput!, where: StationWhereUniqueInput!): Station
+  updateManyStations(data: StationUpdateManyMutationInput!, where: StationWhereInput): BatchPayload!
+  upsertStation(where: StationWhereUniqueInput!, create: StationCreateInput!, update: StationUpdateInput!): Station!
+  deleteStation(where: StationWhereUniqueInput!): Station
+  deleteManyStations(where: StationWhereInput): BatchPayload!
 }
 
 enum MutationType {
@@ -140,14 +40,105 @@ type PageInfo {
 }
 
 type Query {
-  exoplanet(where: ExoplanetWhereUniqueInput!): Exoplanet
-  exoplanets(where: ExoplanetWhereInput, orderBy: ExoplanetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Exoplanet]!
-  exoplanetsConnection(where: ExoplanetWhereInput, orderBy: ExoplanetOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ExoplanetConnection!
+  station(where: StationWhereUniqueInput!): Station
+  stations(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Station]!
+  stationsConnection(where: StationWhereInput, orderBy: StationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): StationConnection!
   node(id: ID!): Node
 }
 
+type Station {
+  id: Int!
+  planetName: String!
+}
+
+type StationConnection {
+  pageInfo: PageInfo!
+  edges: [StationEdge]!
+  aggregate: AggregateStation!
+}
+
+input StationCreateInput {
+  id: Int
+  planetName: String!
+}
+
+type StationEdge {
+  node: Station!
+  cursor: String!
+}
+
+enum StationOrderByInput {
+  id_ASC
+  id_DESC
+  planetName_ASC
+  planetName_DESC
+}
+
+type StationPreviousValues {
+  id: Int!
+  planetName: String!
+}
+
+type StationSubscriptionPayload {
+  mutation: MutationType!
+  node: Station
+  updatedFields: [String!]
+  previousValues: StationPreviousValues
+}
+
+input StationSubscriptionWhereInput {
+  mutation_in: [MutationType!]
+  updatedFields_contains: String
+  updatedFields_contains_every: [String!]
+  updatedFields_contains_some: [String!]
+  node: StationWhereInput
+  AND: [StationSubscriptionWhereInput!]
+  OR: [StationSubscriptionWhereInput!]
+  NOT: [StationSubscriptionWhereInput!]
+}
+
+input StationUpdateInput {
+  planetName: String
+}
+
+input StationUpdateManyMutationInput {
+  planetName: String
+}
+
+input StationWhereInput {
+  id: Int
+  id_not: Int
+  id_in: [Int!]
+  id_not_in: [Int!]
+  id_lt: Int
+  id_lte: Int
+  id_gt: Int
+  id_gte: Int
+  planetName: String
+  planetName_not: String
+  planetName_in: [String!]
+  planetName_not_in: [String!]
+  planetName_lt: String
+  planetName_lte: String
+  planetName_gt: String
+  planetName_gte: String
+  planetName_contains: String
+  planetName_not_contains: String
+  planetName_starts_with: String
+  planetName_not_starts_with: String
+  planetName_ends_with: String
+  planetName_not_ends_with: String
+  AND: [StationWhereInput!]
+  OR: [StationWhereInput!]
+  NOT: [StationWhereInput!]
+}
+
+input StationWhereUniqueInput {
+  id: Int
+}
+
 type Subscription {
-  exoplanet(where: ExoplanetSubscriptionWhereInput): ExoplanetSubscriptionPayload
+  station(where: StationSubscriptionWhereInput): StationSubscriptionPayload
 }
 `
       }

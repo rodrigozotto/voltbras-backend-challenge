@@ -2,13 +2,16 @@
 
 Para executar:
 
-no diretorio /prisma executar
+## no diretorio /prisma
 
-prisma init
+```bash
+# removi um comando aqui que não era necessário
 docker-compose up -d
 prisma deploy
+```
 
-em /
-node server
+## em /
 
-
+```bash
+npm start # seria melhor centralizar o startup do projeto em npm start, é o padrão de projetos JS
+```

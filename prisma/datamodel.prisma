@@ -1,5 +1,9 @@
-type Exoplanet {
+# faria mais sentido conceitualmente
+# se tivermos instalando uma estação num planeta
+# já que o dado temos que pegar da API da Arcsecond de qualquer jeito
+# (a não ser que façamos um fetch periódico na API deles, e populamos
+# nosso DB)
+type Station {
   id: Int! @id
-  name: String! 
-  hasStation: Boolean @default(value: false)
+  planetName: String!
 }

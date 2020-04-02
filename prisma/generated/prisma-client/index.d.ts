@@ -16,7 +16,7 @@ export type AtLeastOne<T, U = { [K in keyof T]: Pick<T, K> }> = Partial<T> &
 export type Maybe<T> = T | undefined | null;
 
 export interface Exists {
-  exoplanet: (where?: ExoplanetWhereInput) => Promise<boolean>;
+  station: (where?: StationWhereInput) => Promise<boolean>;
 }
 
 export interface Node {}
@@ -38,47 +38,47 @@ export interface Prisma {
    * Queries
    */
 
-  exoplanet: (where: ExoplanetWhereUniqueInput) => ExoplanetNullablePromise;
-  exoplanets: (args?: {
-    where?: ExoplanetWhereInput;
-    orderBy?: ExoplanetOrderByInput;
+  station: (where: StationWhereUniqueInput) => StationNullablePromise;
+  stations: (args?: {
+    where?: StationWhereInput;
+    orderBy?: StationOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => FragmentableArray<Exoplanet>;
-  exoplanetsConnection: (args?: {
-    where?: ExoplanetWhereInput;
-    orderBy?: ExoplanetOrderByInput;
+  }) => FragmentableArray<Station>;
+  stationsConnection: (args?: {
+    where?: StationWhereInput;
+    orderBy?: StationOrderByInput;
     skip?: Int;
     after?: String;
     before?: String;
     first?: Int;
     last?: Int;
-  }) => ExoplanetConnectionPromise;
+  }) => StationConnectionPromise;
   node: (args: { id: ID_Output }) => Node;
 
   /**
    * Mutations
    */
 
-  createExoplanet: (data: ExoplanetCreateInput) => ExoplanetPromise;
-  updateExoplanet: (args: {
-    data: ExoplanetUpdateInput;
-    where: ExoplanetWhereUniqueInput;
-  }) => ExoplanetPromise;
-  updateManyExoplanets: (args: {
-    data: ExoplanetUpdateManyMutationInput;
-    where?: ExoplanetWhereInput;
+  createStation: (data: StationCreateInput) => StationPromise;
+  updateStation: (args: {
+    data: StationUpdateInput;
+    where: StationWhereUniqueInput;
+  }) => StationPromise;
+  updateManyStations: (args: {
+    data: StationUpdateManyMutationInput;
+    where?: StationWhereInput;
   }) => BatchPayloadPromise;
-  upsertExoplanet: (args: {
-    where: ExoplanetWhereUniqueInput;
-    create: ExoplanetCreateInput;
-    update: ExoplanetUpdateInput;
-  }) => ExoplanetPromise;
-  deleteExoplanet: (where: ExoplanetWhereUniqueInput) => ExoplanetPromise;
-  deleteManyExoplanets: (where?: ExoplanetWhereInput) => BatchPayloadPromise;
+  upsertStation: (args: {
+    where: StationWhereUniqueInput;
+    create: StationCreateInput;
+    update: StationUpdateInput;
+  }) => StationPromise;
+  deleteStation: (where: StationWhereUniqueInput) => StationPromise;
+  deleteManyStations: (where?: StationWhereInput) => BatchPayloadPromise;
 
   /**
    * Subscriptions
@@ -88,9 +88,9 @@ export interface Prisma {
 }
 
 export interface Subscription {
-  exoplanet: (
-    where?: ExoplanetSubscriptionWhereInput
-  ) => ExoplanetSubscriptionPayloadSubscription;
+  station: (
+    where?: StationSubscriptionWhereInput
+  ) => StationSubscriptionPayloadSubscription;
 }
 
 export interface ClientConstructor<T> {
@@ -101,28 +101,28 @@ export interface ClientConstructor<T> {
  * Types
  */
 
-export type ExoplanetOrderByInput =
+export type StationOrderByInput =
   | "id_ASC"
   | "id_DESC"
-  | "name_ASC"
-  | "name_DESC"
-  | "hasStation_ASC"
-  | "hasStation_DESC";
+  | "planetName_ASC"
+  | "planetName_DESC";
 
 export type MutationType = "CREATED" | "UPDATED" | "DELETED";
 
-export interface ExoplanetCreateInput {
+export interface StationCreateInput {
   id?: Maybe<Int>;
-  name: String;
-  hasStation?: Maybe<Boolean>;
+  planetName: String;
 }
 
-export interface ExoplanetUpdateInput {
-  name?: Maybe<String>;
-  hasStation?: Maybe<Boolean>;
+export interface StationUpdateInput {
+  planetName?: Maybe<String>;
 }
 
-export interface ExoplanetWhereInput {
+export interface StationUpdateManyMutationInput {
+  planetName?: Maybe<String>;
+}
+
+export interface StationWhereInput {
   id?: Maybe<Int>;
   id_not?: Maybe<Int>;
   id_in?: Maybe<Int[] | Int>;
@@ -131,50 +131,37 @@ export interface ExoplanetWhereInput {
   id_lte?: Maybe<Int>;
   id_gt?: Maybe<Int>;
   id_gte?: Maybe<Int>;
-  name?: Maybe<String>;
-  name_not?: Maybe<String>;
-  name_in?: Maybe<String[] | String>;
-  name_not_in?: Maybe<String[] | String>;
-  name_lt?: Maybe<String>;
-  name_lte?: Maybe<String>;
-  name_gt?: Maybe<String>;
-  name_gte?: Maybe<String>;
-  name_contains?: Maybe<String>;
-  name_not_contains?: Maybe<String>;
-  name_starts_with?: Maybe<String>;
-  name_not_starts_with?: Maybe<String>;
-  name_ends_with?: Maybe<String>;
-  name_not_ends_with?: Maybe<String>;
-  hasStation?: Maybe<Boolean>;
-  hasStation_not?: Maybe<Boolean>;
-  AND?: Maybe<ExoplanetWhereInput[] | ExoplanetWhereInput>;
-  OR?: Maybe<ExoplanetWhereInput[] | ExoplanetWhereInput>;
-  NOT?: Maybe<ExoplanetWhereInput[] | ExoplanetWhereInput>;
+  planetName?: Maybe<String>;
+  planetName_not?: Maybe<String>;
+  planetName_in?: Maybe<String[] | String>;
+  planetName_not_in?: Maybe<String[] | String>;
+  planetName_lt?: Maybe<String>;
+  planetName_lte?: Maybe<String>;
+  planetName_gt?: Maybe<String>;
+  planetName_gte?: Maybe<String>;
+  planetName_contains?: Maybe<String>;
+  planetName_not_contains?: Maybe<String>;
+  planetName_starts_with?: Maybe<String>;
+  planetName_not_starts_with?: Maybe<String>;
+  planetName_ends_with?: Maybe<String>;
+  planetName_not_ends_with?: Maybe<String>;
+  AND?: Maybe<StationWhereInput[] | StationWhereInput>;
+  OR?: Maybe<StationWhereInput[] | StationWhereInput>;
+  NOT?: Maybe<StationWhereInput[] | StationWhereInput>;
 }
 
-export interface ExoplanetUpdateManyMutationInput {
-  name?: Maybe<String>;
-  hasStation?: Maybe<Boolean>;
-}
-
-export interface ExoplanetSubscriptionWhereInput {
+export interface StationSubscriptionWhereInput {
   mutation_in?: Maybe<MutationType[] | MutationType>;
   updatedFields_contains?: Maybe<String>;
   updatedFields_contains_every?: Maybe<String[] | String>;
   updatedFields_contains_some?: Maybe<String[] | String>;
-  node?: Maybe<ExoplanetWhereInput>;
-  AND?: Maybe<
-    ExoplanetSubscriptionWhereInput[] | ExoplanetSubscriptionWhereInput
-  >;
-  OR?: Maybe<
-    ExoplanetSubscriptionWhereInput[] | ExoplanetSubscriptionWhereInput
-  >;
-  NOT?: Maybe<
-    ExoplanetSubscriptionWhereInput[] | ExoplanetSubscriptionWhereInput
-  >;
+  node?: Maybe<StationWhereInput>;
+  AND?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
+  OR?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
+  NOT?: Maybe<StationSubscriptionWhereInput[] | StationSubscriptionWhereInput>;
 }
 
-export type ExoplanetWhereUniqueInput = AtLeastOne<{
+export type StationWhereUniqueInput = AtLeastOne<{
   id: Maybe<Int>;
 }>;
 
@@ -182,26 +169,23 @@ export interface NodeNode {
   id: ID_Output;
 }
 
-export interface ExoplanetPreviousValues {
+export interface StationPreviousValues {
   id: Int;
-  name: String;
-  hasStation?: Boolean;
+  planetName: String;
 }
 
-export interface ExoplanetPreviousValuesPromise
-  extends Promise<ExoplanetPreviousValues>,
+export interface StationPreviousValuesPromise
+  extends Promise<StationPreviousValues>,
     Fragmentable {
   id: () => Promise<Int>;
-  name: () => Promise<String>;
-  hasStation: () => Promise<Boolean>;
+  planetName: () => Promise<String>;
 }
 
-export interface ExoplanetPreviousValuesSubscription
-  extends Promise<AsyncIterator<ExoplanetPreviousValues>>,
+export interface StationPreviousValuesSubscription
+  extends Promise<AsyncIterator<StationPreviousValues>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<Int>>;
-  name: () => Promise<AsyncIterator<String>>;
-  hasStation: () => Promise<AsyncIterator<Boolean>>;
+  planetName: () => Promise<AsyncIterator<String>>;
 }
 
 export interface BatchPayload {
@@ -220,94 +204,90 @@ export interface BatchPayloadSubscription
   count: () => Promise<AsyncIterator<Long>>;
 }
 
-export interface AggregateExoplanet {
+export interface AggregateStation {
   count: Int;
 }
 
-export interface AggregateExoplanetPromise
-  extends Promise<AggregateExoplanet>,
+export interface AggregateStationPromise
+  extends Promise<AggregateStation>,
     Fragmentable {
   count: () => Promise<Int>;
 }
 
-export interface AggregateExoplanetSubscription
-  extends Promise<AsyncIterator<AggregateExoplanet>>,
+export interface AggregateStationSubscription
+  extends Promise<AsyncIterator<AggregateStation>>,
     Fragmentable {
   count: () => Promise<AsyncIterator<Int>>;
 }
 
-export interface ExoplanetSubscriptionPayload {
+export interface StationSubscriptionPayload {
   mutation: MutationType;
-  node: Exoplanet;
+  node: Station;
   updatedFields: String[];
-  previousValues: ExoplanetPreviousValues;
+  previousValues: StationPreviousValues;
 }
 
-export interface ExoplanetSubscriptionPayloadPromise
-  extends Promise<ExoplanetSubscriptionPayload>,
+export interface StationSubscriptionPayloadPromise
+  extends Promise<StationSubscriptionPayload>,
     Fragmentable {
   mutation: () => Promise<MutationType>;
-  node: <T = ExoplanetPromise>() => T;
+  node: <T = StationPromise>() => T;
   updatedFields: () => Promise<String[]>;
-  previousValues: <T = ExoplanetPreviousValuesPromise>() => T;
+  previousValues: <T = StationPreviousValuesPromise>() => T;
 }
 
-export interface ExoplanetSubscriptionPayloadSubscription
-  extends Promise<AsyncIterator<ExoplanetSubscriptionPayload>>,
+export interface StationSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<StationSubscriptionPayload>>,
     Fragmentable {
   mutation: () => Promise<AsyncIterator<MutationType>>;
-  node: <T = ExoplanetSubscription>() => T;
+  node: <T = StationSubscription>() => T;
   updatedFields: () => Promise<AsyncIterator<String[]>>;
-  previousValues: <T = ExoplanetPreviousValuesSubscription>() => T;
+  previousValues: <T = StationPreviousValuesSubscription>() => T;
 }
 
-export interface Exoplanet {
+export interface Station {
   id: Int;
-  name: String;
-  hasStation?: Boolean;
+  planetName: String;
 }
 
-export interface ExoplanetPromise extends Promise<Exoplanet>, Fragmentable {
+export interface StationPromise extends Promise<Station>, Fragmentable {
   id: () => Promise<Int>;
-  name: () => Promise<String>;
-  hasStation: () => Promise<Boolean>;
+  planetName: () => Promise<String>;
 }
 
-export interface ExoplanetSubscription
-  extends Promise<AsyncIterator<Exoplanet>>,
+export interface StationSubscription
+  extends Promise<AsyncIterator<Station>>,
     Fragmentable {
   id: () => Promise<AsyncIterator<Int>>;
-  name: () => Promise<AsyncIterator<String>>;
-  hasStation: () => Promise<AsyncIterator<Boolean>>;
+  planetName: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ExoplanetNullablePromise
-  extends Promise<Exoplanet | null>,
+export interface StationNullablePromise
+  extends Promise<Station | null>,
     Fragmentable {
   id: () => Promise<Int>;
-  name: () => Promise<String>;
-  hasStation: () => Promise<Boolean>;
+  planetName: () => Promise<String>;
 }
 
-export interface ExoplanetConnection {
+export interface StationConnection {
   pageInfo: PageInfo;
-  edges: ExoplanetEdge[];
+  edges: StationEdge[];
 }
 
-export interface ExoplanetConnectionPromise
-  extends Promise<ExoplanetConnection>,
+export interface StationConnectionPromise
+  extends Promise<StationConnection>,
     Fragmentable {
   pageInfo: <T = PageInfoPromise>() => T;
-  edges: <T = FragmentableArray<ExoplanetEdge>>() => T;
-  aggregate: <T = AggregateExoplanetPromise>() => T;
+  edges: <T = FragmentableArray<StationEdge>>() => T;
+  aggregate: <T = AggregateStationPromise>() => T;
 }
 
-export interface ExoplanetConnectionSubscription
-  extends Promise<AsyncIterator<ExoplanetConnection>>,
+export interface StationConnectionSubscription
+  extends Promise<AsyncIterator<StationConnection>>,
     Fragmentable {
   pageInfo: <T = PageInfoSubscription>() => T;
-  edges: <T = Promise<AsyncIterator<ExoplanetEdgeSubscription>>>() => T;
-  aggregate: <T = AggregateExoplanetSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<StationEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateStationSubscription>() => T;
 }
 
 export interface PageInfo {
@@ -333,22 +313,20 @@ export interface PageInfoSubscription
   endCursor: () => Promise<AsyncIterator<String>>;
 }
 
-export interface ExoplanetEdge {
-  node: Exoplanet;
+export interface StationEdge {
+  node: Station;
   cursor: String;
 }
 
-export interface ExoplanetEdgePromise
-  extends Promise<ExoplanetEdge>,
-    Fragmentable {
-  node: <T = ExoplanetPromise>() => T;
+export interface StationEdgePromise extends Promise<StationEdge>, Fragmentable {
+  node: <T = StationPromise>() => T;
   cursor: () => Promise<String>;
 }
 
-export interface ExoplanetEdgeSubscription
-  extends Promise<AsyncIterator<ExoplanetEdge>>,
+export interface StationEdgeSubscription
+  extends Promise<AsyncIterator<StationEdge>>,
     Fragmentable {
-  node: <T = ExoplanetSubscription>() => T;
+  node: <T = StationSubscription>() => T;
   cursor: () => Promise<AsyncIterator<String>>;
 }
 
@@ -381,7 +359,7 @@ export type Boolean = boolean;
 
 export const models: Model[] = [
   {
-    name: "Exoplanet",
+    name: "Station",
     embedded: false
   }
 ];
