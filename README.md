@@ -5,13 +5,18 @@ Para executar:
 ## no diretorio /prisma
 
 ```bash
-# removi um comando aqui que não era necessário
 docker-compose up -d
 prisma deploy
 ```
 
 ## em /
 
+# Para testes
 ```bash
-npm start # seria melhor centralizar o startup do projeto em npm start, é o padrão de projetos JS
+npm test
+```
+
+# Para iniciar
+```bash
+npm start 
 ```
