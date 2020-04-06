@@ -1,28 +1,25 @@
-schema {
-  query: Query
-  mutation: Mutation
-}
+const { gql } = require("apollo-server");
 
-type Query {
-  suitablePlanets(value: Float): [Exoplanet]
-}
+module.exports  = gql`
 
-type Mutation {
-  addStation(name: StationInput!): Exoplanet
-}
+  type Exoplanet {
+    name: String!
+    mass: Float!
+    hasStation: Boolean!
+  }
 
-type Exoplanet {
-  name: String
-  mass: Mass
-  hasStation: Int
-}
+  type Station {
+    id: String!
+    planetName: String!
+  }
 
-type Mass {
-  value: Float
-  unit: String
-}
+  type Query {
+    suitablePlanets: [Exoplanet]
+    installedStations(searchName: String): [Station]
+  }
 
-input StationInput {
-  scopeDefinition: String!
-  successDefinition: String!
-}
+  type Mutation {
+    installStation(planetName: String!): Station
+    removeStation(planetName: String!): Station
+  }
+`;
