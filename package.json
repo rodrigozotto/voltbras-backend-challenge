@@ -24,8 +24,8 @@
     "webpack-plugin-graphql-schema-hot": "0.0.10"
   },
   "scripts": {
-    "start": "jest node server.js",
-    "test": "jest"
+    "start": "node server.js",
+    "test": "node server.js | jest"
   },
   "keywords": [],
   "author": "",
